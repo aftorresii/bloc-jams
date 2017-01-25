@@ -1,70 +1,9 @@
-var albumPicasso = {
-  title: 'The Colors',
-  artist: 'Pablo Picasso',
-  label: 'Cubism',
-  year: '1881',
-  albumArtUrl: 'assets/images/album_covers/01.png',
-  songs: [{
-    title: 'Blue',
-    duration: '4:26'
-  }, {
-    title: 'Green',
-    duration: '3:14'
-  }, {
-    title: 'Red',
-    duration: '5:01'
-  }, {
-    title: 'Pink',
-    duration: '3:21'
-  }, {
-    title: 'Magenta',
-    duration: '2:15'
-  }, ]
-};
-
-var albumMarconi = {
-  title: 'The Telephone',
-  artist: 'Guglielmo Marconi',
-  label: 'EM',
-  year: '1909',
-  albumArtUrl: 'assets/images/album_covers/20.png',
-  songs: [{
-    title: 'Hello, Operator?',
-    duration: '1:01'
-  }, {
-    title: 'Ring, ring, ring',
-    duration: '5:01'
-  }, {
-    title: 'Can you hear me now?',
-    duration: '3:14'
-  }, {
-    title: 'Wrong phone number',
-    duration: '2:15'
-  }, ],
-};
-
-var albumHoliday = {
-  title: 'Holiday Favorites',
-  artist: 'Various',
-  label: 'NP',
-  year: '2004',
-  albumArtUrl: 'assets/images/album_covers/Tree.jpg',
-  songs: [{
-    title: 'Happy Holidays',
-    duration: '4:32'
-  }, {
-    title: 'The Holly and the Ivy',
-    duration: '2:15'
-  }, {
-    title: 'O Christmas Tree',
-    duration: '3:00'
-  }, ],
-};
-
 var createSongRow = function(songNumber, songName, songLength) {
   var template =
     '<tr class="album-view-song-item">' + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>' + ' <td class="song-item-title">' + songName + '</td>' + ' <td class="song-item-duration">' + songLength + '</td>' + '</tr>';
+    
 
+//play-pause icon functionality
   var $row = $(template);
 
   var clickHandler = function() {
@@ -88,7 +27,8 @@ var createSongRow = function(songNumber, songName, songLength) {
     };
 
   };
-
+    
+//Handler to add play button to songs when hovered over with a mouse as long as the song is not currently playing
   var onHover = function(event) {
     var songNumberValue = $(this).find('.song-item-number');
     var songNumber = songNumberValue.attr('data-song-number');
@@ -97,7 +37,7 @@ var createSongRow = function(songNumber, songName, songLength) {
       songNumberValue.html(playButtonTemplate);
     }
   };
-
+//handler to return icon to song number when the mouse leaves if it is not currently playing
   var offHover = function(event) {
     var songNumberValue = $(this).find('.song-item-number');
     var songNumber = songNumberValue.attr('data-song-number');
@@ -116,7 +56,7 @@ var createSongRow = function(songNumber, songName, songLength) {
 };
 
 var setCurrentAlbum = function(album) {
-
+  crrentAlbum = album;
   var $albumTitle = $('.album-view-title');
   var $albumArtist = $('.album-view-artist');
   var $albumReleaseInfo = $('.album-view-release-info');
@@ -141,8 +81,11 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
-var currentlyPlayingSong = null;
+var currentAlbum = null;
+var currentlyPlayingSongNUmber = null;
+var currentSongFromAlbum = null;
 
+//when the document loads set current album to Picasso
 $(document).ready(function() {
 
   setCurrentAlbum(albumPicasso);
