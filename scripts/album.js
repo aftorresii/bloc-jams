@@ -6,9 +6,9 @@ var createSongRow = function(songNumber, songName, songLength) {
 //play-pause icon functionality
   var $row = $(template);
 
-  var clickHandler = function() {
 
-    var clickHandler = function() {
+
+  var clickHandler = function() {
       var songNumber = $(this).attr('data-song-number');
 
       if (currentlyPlayingSong !== null) {
@@ -25,25 +25,23 @@ var createSongRow = function(songNumber, songName, songLength) {
         currentlyPlayingSong = null;
       }
     };
-
-  };
     
 //Handler to add play button to songs when hovered over with a mouse as long as the song is not currently playing
   var onHover = function(event) {
-    var songNumberValue = $(this).find('.song-item-number');
-    var songNumber = songNumberValue.attr('data-song-number');
+    var songNumberCell = $(this).find('.song-item-number');
+    var songNumber = songNumberCell.attr('data-song-number');
 
     if (songNumber !== currentlyPlayingSong) {
-      songNumberValue.html(playButtonTemplate);
+      songNumberCell.html(playButtonTemplate);
     }
   };
 //handler to return icon to song number when the mouse leaves if it is not currently playing
   var offHover = function(event) {
-    var songNumberValue = $(this).find('.song-item-number');
-    var songNumber = songNumberValue.attr('data-song-number');
+    var songNumberCell = $(this).find('.song-item-number');
+    var songNumber = songNumberCell.attr('data-song-number');
 
     if (songNumber !== currentlyPlayingSong) {
-      songNumberValue.html(songNumber);
+      songNumberCell.html(songNumber);
     }
 
   };
@@ -81,14 +79,17 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
-var currentAlbum = null;
-var currentlyPlayingSongNUmber = null;
-var currentSongFromAlbum = null;
+
+var currentlyPlayingSong = null;
+
 
 //when the document loads set current album to Picasso
 $(document).ready(function() {
 
   setCurrentAlbum(albumPicasso);
-
-
+  for (var i = 0; i < songRows.length; i++) {
+       songRows[i].addEventListener('click', function(event) {
+           clickHandler(event.target);
+       });
+  }
 });
