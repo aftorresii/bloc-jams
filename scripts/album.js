@@ -203,10 +203,4 @@ var $nextButton = $('.main-controls .next');
 $(document).ready(function() {
 
   setCurrentAlbum(albumPicasso);
-
-  $previousButton.click(previousSong);
-  $nextButton.click(nextSong);
-
-
-
 });
