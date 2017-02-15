@@ -198,9 +198,9 @@ var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
 
 
-
-//when the document loads set current album to Picasso
 $(document).ready(function() {
-
+    //set current album
   setCurrentAlbum(albumPicasso);
-});
+  $previousButton.click(previousSong);
+  $nextButton.click(nextSong);
+
